@@ -64,6 +64,10 @@ void main() {
     expect(calculator.add('1,,3'), 4);
   });
 
+  test('Invalid input throws format exception', () {
+    final calculator = StringCalculator();
+    expect(() => calculator.add('1,a,3'), throwsFormatException);
+  });
 
 
 }
