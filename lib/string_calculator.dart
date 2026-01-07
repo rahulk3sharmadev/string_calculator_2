@@ -6,9 +6,18 @@ class StringCalculator {
     String body = numbers;
 
     if (numbers.startsWith('//')) {
-      final parts = numbers.split('\n');
-      delimiter = parts[0].substring(2);
-      body = parts[1];
+      final headerAndBody = numbers.split('\n');
+      final header = headerAndBody[0];
+      body = headerAndBody[1];
+
+      if (header.contains('[') && header.contains(']')) {
+        delimiter = header.substring(
+          header.indexOf('[') + 1,
+          header.indexOf(']'),
+        );
+      } else {
+        delimiter = header.substring(2);
+      }
     }
 
     final normalized = body.replaceAll('\n', delimiter);
