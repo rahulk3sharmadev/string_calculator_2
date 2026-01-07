@@ -59,6 +59,11 @@ void main() {
     expect(calculator.add('//[*][%]\n1*2%3'), 6);
   });
 
+  test('Empty values between delimiters are ignored', () {
+    final calculator = StringCalculator();
+    expect(calculator.add('1,,3'), 4);
+  });
+
 
 
 }
