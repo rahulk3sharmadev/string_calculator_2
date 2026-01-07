@@ -1,6 +1,14 @@
 class StringCalculator {
   int add(String numbers) {
     if (numbers.isEmpty) return 0;
-    return int.parse(numbers);
+
+    final parts = numbers.split(',');
+    if (parts.length == 1) {
+      return int.parse(parts[0]);
+    }
+
+    return parts
+        .map(int.parse)
+        .reduce((sum, n) => sum + n);
   }
 }
