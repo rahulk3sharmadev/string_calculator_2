@@ -23,7 +23,11 @@ class StringCalculator {
 
     // Build regex to split by any delimiter
     final pattern = RegExp(delimiters.map(RegExp.escape).join('|'));
-    final values = body.split(pattern).map(int.parse).toList();
+    final values = body
+        .split(pattern)
+        .where((s) => s.isNotEmpty)
+        .map(int.parse)
+        .toList();
 
     final negatives = values.where((n) => n < 0).toList();
     if (negatives.isNotEmpty) {
