@@ -1,0 +1,10 @@
+# Dart / pub
+.dart_tool/
+pubspec.lock
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
