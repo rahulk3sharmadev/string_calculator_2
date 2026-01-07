@@ -2,7 +2,7 @@ class StringCalculator {
   int add(String numbers) {
     if (numbers.isEmpty) return 0;
 
-    String delimiter = ',';
+    List<String> delimiters = [','];
     String body = numbers;
 
     if (numbers.startsWith('//')) {
@@ -10,18 +10,20 @@ class StringCalculator {
       final header = headerAndBody[0];
       body = headerAndBody[1];
 
-      if (header.contains('[') && header.contains(']')) {
-        delimiter = header.substring(
-          header.indexOf('[') + 1,
-          header.indexOf(']'),
-        );
+      final matches = RegExp(r'\[(.*?)\]').allMatches(header);
+      if (matches.isNotEmpty) {
+        delimiters = matches.map((m) => m.group(1)!).toList();
       } else {
-        delimiter = header.substring(2);
+        delimiters = [header.substring(2)];
       }
     }
 
-    final normalized = body.replaceAll('\n', delimiter);
-    final values = normalized.split(delimiter).map(int.parse).toList();
+    // Normalize newlines
+    body = body.replaceAll('\n', delimiters.first);
+
+    // Build regex to split by any delimiter
+    final pattern = RegExp(delimiters.map(RegExp.escape).join('|'));
+    final values = body.split(pattern).map(int.parse).toList();
 
     final negatives = values.where((n) => n < 0).toList();
     if (negatives.isNotEmpty) {
