@@ -21,6 +21,8 @@ class StringCalculator {
       );
     }
 
-    return values.fold(0, (sum, n) => sum + n);
+    return values
+        .where((n) => n <= 1000)
+        .fold(0, (sum, n) => sum + n);
   }
 }
