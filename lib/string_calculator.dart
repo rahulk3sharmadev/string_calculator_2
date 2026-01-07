@@ -12,10 +12,15 @@ class StringCalculator {
     }
 
     final normalized = body.replaceAll('\n', delimiter);
+    final values = normalized.split(delimiter).map(int.parse).toList();
 
-    return normalized
-        .split(delimiter)
-        .map(int.parse)
-        .fold(0, (sum, n) => sum + n);
+    final negatives = values.where((n) => n < 0).toList();
+    if (negatives.isNotEmpty) {
+      throw Exception(
+        'negative numbers not allowed ${negatives.join(',')}',
+      );
+    }
+
+    return values.fold(0, (sum, n) => sum + n);
   }
 }
