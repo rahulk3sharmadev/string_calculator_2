@@ -85,6 +85,9 @@ string_calculator/
 ---
 
 ## Running the Tests
+### Test Results
+00:00 +12: All tests passed!
+
 
 ### Prerequisites
 
